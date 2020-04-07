@@ -35,7 +35,7 @@ function App() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io.connect("http://localhost:3333");
+    socket.current = io.connect("https://simple-video-chat-with-soket.herokuapp.com/");
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
       setStream(stream);
       if (userVideo.current) {
