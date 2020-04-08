@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <Container>
       <img src={logo} alt="Triângulo Sul Sistemas"/>
-      <h1>Triângulo Sul Sistemas</h1>
+      <h1>Triângulo Sul Tecnologia</h1>
     </Container>
   );
 }
