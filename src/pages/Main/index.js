@@ -1,25 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
 
-const Container = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
+import Header from '../../components/Header';
 
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const Video = styled.video`
-  border: 1px solid blue;
-  width: 50%;
-  height: 50%;
-`;
+import { Container, Row, Video } from './styles';
 
 function App() {
   const [yourID, setYourID] = useState("");
@@ -118,31 +103,40 @@ function App() {
   let incomingCall;
   if (receivingCall) {
     incomingCall = (
-      <div>
-        <h1>{caller} is calling you</h1>
-        <button onClick={acceptCall}>Accept</button>
+      <div className>
+        {/* <h1>Alguém está te ligando!</h1> */}
+        <p className='desc'>Atenter</p>
+        <button onClick={acceptCall}>{caller}</button>
       </div>
     )
   }
   return (
     <Container>
+      <Header />
+
       <Row>
         {UserVideo}
         {PartnerVideo}
       </Row>
-      <Row>
+      <h1>Usuários conectados</h1>
+      <div className="btn-container">
         {Object.keys(users).map(key => {
           if (key === yourID) {
-            return null;
+            return  <p style={{fontSize: 18, color: '#fff', textAlign: 'center', marginTop: 20, marginBottom: 20}}>Os usuários conectados apareceram aqui.</p>;
           }
           return (
-            <button onClick={() => callPeer(key)}>Call {key}</button>
+            <div>
+              <p className='desc'>Ligar para</p> 
+              <button onClick={() => callPeer(key)}>{key}</button>
+            </div>
           );
         })}
-      </Row>
-      <Row>
-        {incomingCall}
-      </Row>
+      </div>
+      <br/>
+      <h1>Ligação recebida</h1>
+      <div className="btn-container">
+        {incomingCall ? incomingCall : <p style={{fontSize: 18, color: '#fff', textAlign: 'center', marginTop: 20, marginBottom: 20}}>A chamada recebida aparecerá aqui.</p>}
+      </div>
     </Container>
   );
 }
